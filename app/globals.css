@@ -3,12 +3,34 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --card: #0c1120;
+  --card2: #101828;
+  --border: rgba(255, 255, 255, 0.06);
+  --border2: rgba(255, 255, 255, 0.12);
+  --accent: #e8ff47;
+  --accent2: #7cffd4;
+  --accent3: #ff6b6b;
+  --blue: #4d9fff;
+  --text: #f5f7ff;
+  --muted: #7a8199;
+  --muted2: #3d4258;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-card: var(--card);
+  --color-card2: var(--card2);
+  --color-border: var(--border);
+  --color-border2: var(--border2);
+  --color-text: var(--text);
+  --color-accent2: var(--accent2);
+  --color-accent: var(--accent);
+  --color-accent3: var(--accent3);
+  --color-blue: var(--blue);
+  --color-muted: var(--muted); 
+  --color-muted2: var(--muted2); 
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -22,5 +44,220 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #e8ff47;
+  color: #000;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #04050a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e8ff47;
+  border-radius: 2px;
+}
+
+#cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: #e8ff47;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(232, 255, 71, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.text-ghost {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  color: transparent;
+  transition: color 0.3s;
+  display: block;
+}
+
+.text-ghost:hover {
+  color: #e8ff47;
+  -webkit-text-stroke: 0px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-d1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-d2 {
+  transition-delay: 0.2s;
+}
+
+.reveal-d3 {
+  transition-delay: 0.3s;
+}
+
+.reveal-d4 {
+  transition-delay: 0.4s;
+}
+
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.nav-link {
+  position: relative;
+  color: #7a8199;
+  font-size: 0.78rem;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #e8ff47;
+  transition: width 0.3s;
+}
+
+.nav-link:hover {
+  color: #f5f7ff;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.dot-blink {
+  animation: blink 2s ease infinite;
+}
+
+@keyframes scrollPulse {
+
+  0%,
+  100% {
+    width: 40px;
+    opacity: .5
+  }
+
+  50% {
+    width: 20px;
+    opacity: 1
+  }
+}
+
+.scroll-pulse {
+  display: inline-block;
+  animation: scrollPulse 2s ease infinite;
+}
+
+.exp-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #e8ff47, transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.exp-card.is-current::before {
+  opacity: 1;
+  background: linear-gradient(90deg, transparent, #7cffd4, transparent);
+}
+
+.exp-card:hover::before {
+  opacity: 1;
+}
+
+.skill-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #e8ff47, #7cffd4);
+  width: 0;
+  transition: width 1s ease;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* background-size: 200px; */
 }
